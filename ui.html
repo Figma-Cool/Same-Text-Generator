@@ -3,23 +3,38 @@
     name="dataField"
     id="dataField"
     rows="10"
-    placeholder="Input something"
+    placeholder="✍️ Input something..."
   ></textarea>
   <button>Insert Data</button>
 </main>
+<footer>
+  Made by <a target="_blank" href="https://figma.cool">Figma.Cool</a>
+</footer>
 
 <script>
   const button = document.querySelector("button");
+  let data = document.getElementById("dataField");
+  let inputData;
+  button.style.opacity = 0.4;
+  data.focus();
 
-  button.addEventListener("click", () => {
-    let data = document.getElementById("dataField").value;
-    console.log(data);
+  data.addEventListener("input", (e) => {
+    if (e.target.value) {
+      button.style.opacity = 1;
+    } else {
+      button.style.opacity = 0.4;
+    }
+    inputData = e.target.value;
   });
 
-  // parent.postMessage(
-  //   { pluginMessage: { type: "create-rectangles", data } },
-  //   "*"
-  // );
+  button.addEventListener("click", () => {
+    // if (inputData) {
+      parent.postMessage(
+        { pluginMessage: { type: "text", inputData: inputData } },
+        "*"
+      );
+    // }
+  });
 </script>
 
 <style>
@@ -29,29 +44,86 @@
     box-sizing: border-box;
   }
 
+  body {
+    font-family: -apple-system, sans-serif;
+  }
+
+  a {
+    text-decoration: none;
+    color: #3d4373;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
   main {
     height: 100vh;
-    padding: 20px;
+    padding: 20px 20px 60px 20px;
   }
 
   textarea {
     width: 100%;
-    height: calc(100% - 40px);
+    height: calc(100% - 70px);
     min-height: 80px;
     padding: 8px;
-    border-color: #333;
+    border-color: #e5e5e5;
     border-radius: 4px;
     resize: vertical;
-    font-size: 14px;
+    font-size: 15px;
+    color: #3d4373;
+    word-spacing: 1px;
+    line-height: 20px;
+    transition: all 0.3s ease;
   }
+
+  textarea:hover {
+    border-color: hsl(0, 0%, 75%);
+  }
+
+  textarea::-webkit-input-placeholder {
+    color: #3d43737c;
+  }
+
+  textarea:focus,
+  button:focus {
+    outline: none;
+    border-color: #29a9ff;
+    box-shadow: 0 0 0 3px #29a9ff34;
+  }
+
   button {
     z-index: 99;
-    position: fixed;
-    bottom: 0;
-    left: 0;
     border: none;
     margin-top: 16px;
     width: 100%;
     height: 40px;
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 500;
+    background: #50b4f9;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  button:hover {
+    background: #29a9ff;
+  }
+
+  footer {
+    z-index: 999;
+    width: 100%;
+    padding: 8px 12px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    text-align: right;
+    font-size: 12px;
+    line-height: 12px;
+    color: #8b8eab;
+    border-top: 1px solid #e5e5e5;
   }
 </style>
