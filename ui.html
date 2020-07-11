@@ -28,12 +28,10 @@
   });
 
   button.addEventListener("click", () => {
-    // if (inputData) {
       parent.postMessage(
         { pluginMessage: { type: "text", inputData: inputData } },
         "*"
       );
-    // }
   });
 </script>
 
