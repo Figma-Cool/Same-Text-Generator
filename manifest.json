@@ -1,6 +1,6 @@
 {
-  "name": "Insert data",
-  "id": "863281594848411611",
+  "name": "Same Text Generator",
+  "id": "863748474013054025",
   "api": "1.0.0",
   "main": "code.js",
   "ui": "ui.html"
